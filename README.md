@@ -1,1 +1,1 @@
-# learn-spanish-with-news
+# Learn Spanish with News
