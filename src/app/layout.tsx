@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body
-        className={`${pirataOne.variable} ${newsreader.variable} antialiased`}
+        className={`${pirataOne.variable} ${newsreader.variable} antialiased flex flex-col min-w-[320px] min-h-screen place-items-center w-full`}
         translate="no"
       >
         {children}
