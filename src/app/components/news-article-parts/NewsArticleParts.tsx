@@ -16,14 +16,15 @@ function NewsArticlePart({ part }: { part: TranslatedNewsArticlePart }) {
     <HoverCard openDelay={300} closeDelay={0}>
       <HoverCardTrigger
         className="
-            hover:animate-[highlight_0.75s_forwards] 
-            bg-size-[200%]
-            bg-[linear-gradient(to_right,var(--background)_50%,transparent_50%),linear-gradient(var(--highlight)_0%,var(--highlight)_50%)]
-            [background-position-y:-0.25em]
-            "
+          hover:animate-[highlight_0.75s_forwards] 
+          bg-size-[200%]
+          bg-[linear-gradient(to_right,var(--background)_50%,transparent_50%),linear-gradient(var(--highlight)_0%,var(--highlight)_50%)]
+          [background-position-y:-0.25em]
+          inline-block
+        "
       >
-        {part.es}{" "}
-      </HoverCardTrigger>
+        {part.es}
+      </HoverCardTrigger>{" "}
       <HoverCardContent
         side="top"
         align="start"
