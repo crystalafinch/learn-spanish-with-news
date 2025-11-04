@@ -23,7 +23,7 @@ function NewsArticleImage({ article }: { article: NewsArticle }) {
             ? article.title
             : article.title.translated
         }
-        className="saturate-50 object-cover rounded"
+        className="rounded object-cover saturate-50"
         fill={true} // Image width and height are unknown
         sizes="(max-width: 768px) 5rem, (max-width: 1200px) 10rem, 5rem"
       />
@@ -42,21 +42,21 @@ export default async function NewsList() {
   }
 
   return (
-    <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-8 py-6">
+    <div className="columns-1 gap-8 py-6 sm:columns-2 md:columns-3 lg:columns-4">
       <Suspense fallback={<div>Loading news…</div>}></Suspense>
       {articles?.map((a) => (
         <article
           key={a.url}
-          className="border-border border-b break-inside-avoid mb-6 pb-4"
+          className="border-border mb-6 break-inside-avoid border-b pb-4"
         >
           <NewsArticleImage article={a} />
-          <h2 className="cursor-default text-xl font-bold leading-[1.1] mt-2">
+          <h2 className="mt-2 cursor-default text-xl leading-[1.1] font-bold">
             <NewsArticleContent data={a.title} />
           </h2>
-          <div className="cursor-default mt-2">
+          <div className="mt-2 cursor-default">
             <NewsArticleContent data={a.description} />
           </div>
-          <p className="text-sm text-muted-foreground mt-1">
+          <p className="text-muted-foreground mt-1 text-sm">
             <a href={a.url} target="_blank" rel="noopener noreferrer">
               Read more on {a.source}
             </a>

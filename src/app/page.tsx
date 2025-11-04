@@ -4,7 +4,7 @@ import NewsList from "@components/news-list/NewsList";
 
 export default function Home() {
   return (
-    <div className="container grid grid-rows-[auto_1fr_auto] md:min-h-screen min-h-dvh max-w-6xl">
+    <div className="container grid min-h-dvh max-w-6xl grid-rows-[auto_1fr_auto] md:min-h-screen">
       <Header />
       <main>
         <NewsList />
