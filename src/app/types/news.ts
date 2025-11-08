@@ -1,20 +1,22 @@
 import type { CATEGORIES } from "../consts";
 
 export interface NewsArticle {
-  uuid: string;
-  title: string | TranslatedNewsArticleData;
-  description: string | TranslatedNewsArticleData;
-  keywords: string; // comma separated list
-  snippet: string;
-  url: string;
-  image_url: string;
-  language: string;
-  published_at: string;
-  source: string;
-  categories: string[];
-  locale: string;
-  similar?: NewsArticle[];
-  relevance_score?: number | null;
+  id: string;
+  type: string;
+  sectionId: string;
+  sectionName: string;
+  webPublicationDate: string;
+  webTitle: string;
+  webUrl: string;
+  apiUrl: string;
+  isHosted: boolean;
+  pillarId: string;
+  pillarName: string;
+  fields: {
+    headline: string | TranslatedNewsArticleData;
+    trailText: string | TranslatedNewsArticleData;
+    thumbnail?: string;
+  };
 }
 
 export interface TranslatedNewsArticleData {
@@ -30,5 +32,7 @@ export interface TranslatedNewsArticlePart {
 export type NewsCategory = keyof typeof CATEGORIES;
 
 export interface NewsHeadlinesResponse {
-  data: NewsArticle[];
+  response: {
+    results: NewsArticle[];
+  };
 }

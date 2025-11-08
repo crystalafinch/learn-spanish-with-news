@@ -13,15 +13,15 @@ function NewsArticleContent({
 }
 
 function NewsArticleImage({ article }: { article: NewsArticle }) {
-  if (!article.image_url) return null;
+  if (!article.fields.thumbnail) return null;
   return (
     <div className="relative h-20 w-30">
       <Image
-        src={article.image_url}
+        src={article.fields.thumbnail}
         alt={
-          typeof article.title === "string"
-            ? article.title
-            : article.title.translated
+          typeof article.fields.headline === "string"
+            ? article.fields.headline
+            : article.fields.headline.translated
         }
         className="rounded object-cover saturate-50"
         fill={true} // Image width and height are unknown
@@ -35,7 +35,7 @@ export default async function NewsList() {
   let articles: NewsArticle[] | undefined;
 
   try {
-    articles = await fetchTopNews();
+    articles = await fetchTopNews({ section: "world" });
   } catch (error) {
     console.error((error as Error).message);
     return <div>Error fetching news: {(error as Error).message}</div>;
@@ -46,19 +46,19 @@ export default async function NewsList() {
       <Suspense fallback={<div>Loading news…</div>}></Suspense>
       {articles?.map((a) => (
         <article
-          key={a.url}
+          key={a.webUrl}
           className="border-border mb-6 break-inside-avoid border-b pb-4"
         >
           <NewsArticleImage article={a} />
           <h2 className="mt-2 cursor-default text-xl leading-[1.1] font-bold">
-            <NewsArticleContent data={a.title} />
+            <NewsArticleContent data={a.fields.headline} />
           </h2>
           <div className="mt-2 cursor-default">
-            <NewsArticleContent data={a.description} />
+            <NewsArticleContent data={a.fields.headline} />
           </div>
           <p className="text-muted-foreground mt-1 text-sm">
-            <a href={a.url} target="_blank" rel="noopener noreferrer">
-              Read more on {a.source}
+            <a href={a.webUrl} target="_blank" rel="noopener noreferrer">
+              Read more
             </a>
           </p>
         </article>
