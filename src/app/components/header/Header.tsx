@@ -1,5 +1,6 @@
 import Navigation from "@components/navigation/Navigation";
 import DateComponent from "@components/date/Date";
+import ThemeSelect from "@/app/components/theme-select/ThemeSelect";
 
 export default function Header() {
   return (
@@ -8,6 +9,7 @@ export default function Header() {
         Aprende con Noticias
       </h1>
       <DateComponent className="absolute top-4 text-gray-400" />
+      <ThemeSelect />
       <Navigation />
     </header>
   );

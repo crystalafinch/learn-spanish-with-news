@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Pirata_One, Newsreader } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 import "./globals.css";
 
 const pirataOne = Pirata_One({
@@ -26,12 +27,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="es" suppressHydrationWarning>
       <body
-        className={`${pirataOne.variable} ${newsreader.variable} flex min-h-screen w-full min-w-[320px] flex-col place-items-center antialiased`}
+        className={`${pirataOne.variable} ${newsreader.variable} bg-background flex min-h-screen w-full min-w-[320px] flex-col place-items-center antialiased`}
         translate="no"
       >
-        {children}
+        <ThemeProvider attribute="class">{children}</ThemeProvider>
       </body>
     </html>
   );
