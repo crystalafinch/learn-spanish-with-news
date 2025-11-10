@@ -4,7 +4,7 @@ import type {
   NewsHeadlinesResponse,
 } from "../types/news";
 import { getPublishedDateString } from "@/app/utils";
-import { translateNews, translateNewsCached } from "./translate";
+// import { translateNews } from "./translate";
 
 export async function fetchTopNews({
   section,
@@ -31,7 +31,7 @@ export async function fetchTopNews({
   const json: NewsHeadlinesResponse = await res.json();
   const articles = json.response.results;
   // const translatedArticles = translateNews(articles);
-  const translatedArticles = await translateNewsCached(articles);
+  // return translatedArticles;
 
-  return translatedArticles;
+  return articles;
 }

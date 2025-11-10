@@ -1,6 +1,5 @@
 import OpenAI from "openai";
 import type { NewsArticle } from "../types/news";
-import { TRANSLATED_ARTICLES } from "@/app/consts/translated-articles"; // TODO: Remove
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!,
@@ -77,22 +76,5 @@ export async function translateNews(articles: NewsArticle[]) {
     }
   });
 
-  return translatedArticles;
-}
-
-export async function translateNewsCached(articles: NewsArticle[]) {
-  const translatedArticles: NewsArticle[] = structuredClone(articles);
-  TRANSLATED_ARTICLES.forEach((translation) => {
-    const article = translatedArticles.find((a) => a.id === translation.id);
-    if (article) {
-      const thumbnail = article.fields.thumbnail;
-      Object.assign(article, translation);
-
-      // Preserve original thumbnail
-      if (thumbnail) {
-        article.fields.thumbnail = thumbnail;
-      }
-    }
-  });
   return translatedArticles;
 }
