@@ -1,0 +1,8 @@
+{
+  "cron": {
+    "fetch-news-daily": {
+      "path": "/api/fetch-news",
+      "schedule": "0 * * * *"
+    }
+  }
+}
