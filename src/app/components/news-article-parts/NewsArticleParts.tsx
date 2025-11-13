@@ -6,10 +6,7 @@ import {
   HoverCardTrigger,
   HoverCardArrow,
 } from "@radix-ui/react-hover-card";
-import type {
-  TranslatedNewsArticleData,
-  TranslatedNewsArticlePart,
-} from "@/app/types/news";
+import type { TranslatedNewsArticlePart } from "@/app/types/news";
 
 function NewsArticlePart({ part }: { part: TranslatedNewsArticlePart }) {
   return (
@@ -29,10 +26,8 @@ function NewsArticlePart({ part }: { part: TranslatedNewsArticlePart }) {
   );
 }
 
-function NewsArticleParts({ data }: { data: TranslatedNewsArticleData }) {
-  return data.parts.map((part, index) =>
-    part.en ? <NewsArticlePart key={index} part={part} /> : part.es + " ",
-  );
+function NewsArticleParts({ data }: { data: TranslatedNewsArticlePart[] }) {
+  return data.map((part, index) => <NewsArticlePart key={index} part={part} />);
 }
 
 export default NewsArticleParts;

@@ -1,5 +1,5 @@
 import OpenAI from "openai";
-import type { NewsArticle } from "../types/news";
+import type { NewsArticle, TranslatedNewsArticle } from "../types/news";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!,
@@ -7,9 +7,11 @@ const openai = new OpenAI({
   maxRetries: 0,
 });
 
-export async function translateNews(articles: NewsArticle[]) {
-  const translatedArticles: NewsArticle[] = structuredClone(articles);
-  const articlesData = translatedArticles.map((a) => ({
+export async function translateNews(
+  articles: NewsArticle[],
+): Promise<TranslatedNewsArticle[]> {
+  const translatedArticles: TranslatedNewsArticle[] = [];
+  const articlesData = articles.map((a) => ({
     id: a.id,
     headline: a.fields.headline,
     trailText: a.fields.trailText,
@@ -23,7 +25,7 @@ export async function translateNews(articles: NewsArticle[]) {
     
     Then, break each translated title and description into parts (single words or short phrases). 
     Each part must have both English and Spanish values. 
-    If a part is a name or acronym, set "en" to undefined (don't guess).
+    If a part is a name or acronym, set "es" to the original value (don't guess).
 
     Example of parts:
     "El presidente de España se reunió con líderes locales en Madrid."
@@ -37,17 +39,9 @@ export async function translateNews(articles: NewsArticle[]) {
     Respond **only** with a top-level JSON array called "result", no extra text:
     result: [
       {
-        "id": string, 
-        "fields": {
-          "headline": { 
-            "translated": string, 
-            "parts": Array<{ "en": string | undefined; "es": string }>;
-          }, 
-          "trailText": { 
-            "translated": string, 
-            "parts": Array<{ "en": string | undefined; "es": string }>;
-          } 
-        }
+        "id": string,
+        "headlineParts": Array<{ "en": string; "es": string }>,
+        "trailTextParts": Array<{ "en": string; "es": string }>,
       }
     ]
   `;
@@ -63,16 +57,20 @@ export async function translateNews(articles: NewsArticle[]) {
     response.choices[0].message?.content?.trim() || "[]",
   );
 
-  translations.result.forEach((translation: Partial<NewsArticle>) => {
-    const article = translatedArticles.find((a) => a.id === translation.id);
+  translations.result.forEach((translation: Partial<TranslatedNewsArticle>) => {
+    const article = articles.find((a) => a.id === translation.id);
     if (article) {
-      const thumbnail = article.fields.thumbnail;
-      Object.assign(article, translation);
-
-      // Preserve original thumbnail
-      if (thumbnail) {
-        article.fields.thumbnail = thumbnail;
-      }
+      translatedArticles.push({
+        id: article.id,
+        sectionId: article.sectionId,
+        sectionName: article.sectionName,
+        webPublicationDate: article.webPublicationDate,
+        webTitle: article.webTitle,
+        webUrl: article.webUrl,
+        headlineParts: translation.headlineParts || [],
+        trailTextParts: translation.trailTextParts || [],
+        thumbnail: article.fields.thumbnail,
+      });
     }
   });
 
