@@ -5,7 +5,13 @@ import { NewsCategory } from "@/app/types/news";
 
 const sql = neon(process.env.DATABASE_URL!);
 
-export async function GET() {
+export async function GET(req: Request) {
+  if (
+    req.headers.get("Authorization") !== `Bearer ${process.env.CRON_SECRET}`
+  ) {
+    return Response.json({ message: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const sections = Object.keys(CATEGORIES) as NewsCategory[];
     const translatedArticles = [];
