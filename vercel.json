@@ -1,7 +1,6 @@
 {
-  "cron": {
-    "fetch-news-daily": {
-      "path": "/api/fetch-news",
+  "functions": {
+    "api/fetch-news.ts": {
       "schedule": "0 * * * *"
     }
   }
