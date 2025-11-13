@@ -1,7 +1,0 @@
-{
-  "functions": {
-    "api/fetch-news.ts": {
-      "schedule": "0 * * * *"
-    }
-  }
-}
