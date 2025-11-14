@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { fetchNewsFromDatabase } from "@/app/services/news";
-import type { TranslatedNewsArticle } from "@/app/types/news";
+import type { NewsCategory, TranslatedNewsArticle } from "@/app/types/news";
 import NewsArticleParts from "../news-article-parts/NewsArticleParts";
 import Image from "next/image";
 
@@ -19,11 +19,15 @@ function NewsArticleImage({ article }: { article: TranslatedNewsArticle }) {
   );
 }
 
-export default async function NewsList() {
+export default async function NewsList({
+  section,
+}: {
+  section?: NewsCategory | undefined;
+}) {
   let articles: TranslatedNewsArticle[] | undefined;
 
   try {
-    articles = await fetchNewsFromDatabase({ section: "world" });
+    articles = await fetchNewsFromDatabase({ section: section || "world" });
   } catch (error) {
     console.error((error as Error).message);
     return <div>Error fetching news: {(error as Error).message}</div>;

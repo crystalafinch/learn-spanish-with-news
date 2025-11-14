@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Pirata_One, Newsreader } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
+import Header from "./components/header/Header";
+import Footer from "./components/footer/Footer";
 
 const pirataOne = Pirata_One({
   weight: "400",
@@ -32,7 +34,13 @@ export default function RootLayout({
         className={`${pirataOne.variable} ${newsreader.variable} bg-background flex min-h-screen w-full min-w-[320px] flex-col place-items-center antialiased`}
         translate="no"
       >
-        <ThemeProvider attribute="class">{children}</ThemeProvider>
+        <ThemeProvider attribute="class">
+          <div className="container grid min-h-dvh max-w-6xl grid-rows-[auto_1fr_auto] md:min-h-screen">
+            <Header />
+            <main>{children}</main>
+            <Footer />
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
