@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useEffectEvent, useState } from "react";
 import { useTheme } from "next-themes";
 import {
   DropdownMenu,
@@ -37,9 +37,13 @@ export default function ThemeSelect() {
     { value: "light", label: "Light" },
   ];
 
+  // Prevent hydration errors and avoid disabling eslint exhaustive deps rule
+  const updateMounted = useEffectEvent(() => {
+    setMounted(true);
+  });
+
   useEffect(() => {
-    // This pattern is required by next-themes to prevent hydration errors
-    setMounted(true); // eslint-disable-line react-hooks/set-state-in-effect
+    updateMounted();
   }, []);
 
   if (!mounted) return null;
