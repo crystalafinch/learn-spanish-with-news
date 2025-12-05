@@ -130,7 +130,7 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.552 0.016 285.938);
   --shadow: oklch(0 0 0 / 0.3);
-  --highlight: var(--color-amber-200);
+  --highlight: var(--color-amber-700);
 }
 
 body {

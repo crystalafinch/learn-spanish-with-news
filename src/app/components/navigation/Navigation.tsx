@@ -12,7 +12,7 @@ export default function Navigation() {
   }));
 
   return (
-    <nav className="border-y border-gray-200 py-3 dark:border-gray-700">
+    <nav className="border-y border-gray-200 py-3">
       <ul className="flex justify-center gap-5">
         {categories.map((category) => (
           <li key={category.key} className="relative top-[0.03em] leading-none">
