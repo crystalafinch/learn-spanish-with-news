@@ -81,6 +81,7 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --color-shadow: var(--shadow);
   --default-shadow-color: var(--shadow);
+  --color-highlight: var(--highlight);
   --font-display: var(--font-pirata-one);
   --font-sans: var(--font-newsreader);
 
